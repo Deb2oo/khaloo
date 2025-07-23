@@ -13,12 +13,20 @@ export default function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     navigate("/login");
+    handleCollapse(); // Close navbar
+  };
+
+  const handleCollapse = () => {
+    const collapseElement = document.getElementById("navbarNav");
+    if (collapseElement?.classList.contains("show")) {
+      new window.bootstrap.Collapse(collapseElement).hide();
+    }
   };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark" style={{ backgroundColor: "#1e1e1e" }}>
       <div className="container-fluid px-4">
-        <Link className="navbar-brand fs-2 fw-bold text-success fst-italic" to="/">
+        <Link className="navbar-brand fs-2 fw-bold text-success fst-italic" to="/" onClick={handleCollapse}>
           KhaLoo
         </Link>
         <button
@@ -36,11 +44,15 @@ export default function Navbar() {
         <div className="collapse navbar-collapse justify-content-between" id="navbarNav">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className="nav-link text-white fs-5" to="/">Home</Link>
+              <Link className="nav-link text-white fs-5" to="/" onClick={handleCollapse}>
+                Home
+              </Link>
             </li>
             {localStorage.getItem("authToken") && (
               <li className="nav-item">
-                <Link className="nav-link text-white fs-5" to="/myorder">My Orders</Link>
+                <Link className="nav-link text-white fs-5" to="/myorder" onClick={handleCollapse}>
+                  My Orders
+                </Link>
               </li>
             )}
           </ul>
@@ -48,10 +60,10 @@ export default function Navbar() {
           <div className="d-flex align-items-center">
             {!localStorage.getItem("authToken") ? (
               <>
-                <Link className="btn btn-outline-success me-2" to="/login">
+                <Link className="btn btn-outline-success me-2" to="/login" onClick={handleCollapse}>
                   Login
                 </Link>
-                <Link className="btn btn-outline-light" to="/createuser">
+                <Link className="btn btn-outline-light" to="/createuser" onClick={handleCollapse}>
                   Signup
                 </Link>
               </>
@@ -59,7 +71,10 @@ export default function Navbar() {
               <>
                 <button
                   className="btn btn-outline-warning me-3 position-relative"
-                  onClick={() => setCartView(true)}
+                  onClick={() => {
+                    setCartView(true);
+                    handleCollapse();
+                  }}
                 >
                   My Cart
                   <Badge pill bg="danger" className="ms-2">
