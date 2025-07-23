@@ -9,33 +9,45 @@ export default function Card({ foodItem: foodItems, options = {}, ImagSrc }) {
   const [qty, setQty] = useState(1);
   const [size, setSize] = useState(priceOptions[0]);
 
-  const handleAddToCart = async () => {
-    const itemId = foodItems._id;
-    const itemPrice = options[size];
-    const existingItem = cart.find(item => item.id === itemId && item.size === size);
+const handleAddToCart = async () => {
+  const isLoggedIn = localStorage.getItem("authToken");
 
-    if (existingItem) {
-      dispatch({
-        type: "UPDATE",
-        id: itemId,
-        size,
-        qty,
-        price: itemPrice
-      });
-      toast.info("Item quantity updated in cart!");
-    } else {
-      dispatch({
-        type: "ADD",
-        id: itemId,
-        name: foodItems.name,
-        price: itemPrice,
-        qty,
-        size,
-        img: foodItems.img
-      });
-      toast.success("Item added to cart!");
-    }
-  };
+  if (!isLoggedIn) {
+    toast.warn("Please login to add items to cart!", {
+      position: "top-right",
+      autoClose: 2000,
+      theme: "colored"
+    });
+    return;
+  }
+
+  const itemId = foodItems._id;
+  const itemPrice = options[size];
+  const existingItem = cart.find(item => item.id === itemId && item.size === size);
+
+  if (existingItem) {
+    dispatch({
+      type: "UPDATE",
+      id: itemId,
+      size,
+      qty,
+      price: itemPrice
+    });
+    toast.info("Item quantity updated in cart!");
+  } else {
+    dispatch({
+      type: "ADD",
+      id: itemId,
+      name: foodItems.name,
+      price: itemPrice,
+      qty,
+      size,
+      img: foodItems.img
+    });
+    toast.success("Item added to cart!");
+  }
+};
+
 
   return (
     <div className="card mt-3" style={{ width: "18rem", maxHeight: "360px" }}>

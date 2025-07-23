@@ -1,6 +1,8 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 const baseUrl = process.env.REACT_APP_BACKEND_URL;
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer"; 
 
 
 export default function Signup() {
@@ -45,6 +47,8 @@ const navigate = useNavigate();
   };
 
   return (
+    <>
+    <Navbar />
     <div
       className="d-flex justify-content-center align-items-center"
       style={{
@@ -158,5 +162,7 @@ const navigate = useNavigate();
         </div>
       </form>
     </div>
+    <Footer />
+    </>
   );
 }
