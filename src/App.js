@@ -5,6 +5,8 @@ import "./App.css";
 import About from "./screen/About";
 import Contact from "./screen/Contact";
 import PrivacyPolicy from "./screen/PrivacyPolicy";
+// import SuccessPage from "./screen/SuccessPage.js";
+// import CancelPage from "./screen/CancelPage.js";
 
 import Home from "./screen/Home";
 import Login from "./screen/Login";
@@ -28,6 +30,8 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            {/* <Route path="/success" element={<SuccessPage />} />
+            <Route path="/cancel" element={<CancelPage />} /> */}
           </Routes>
         </Layout>
       </Router>
