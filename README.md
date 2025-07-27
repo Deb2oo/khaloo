@@ -1,7 +1,6 @@
 # Live Demo
 
 - **Frontend**: [https://khaloo.vercel.app](https://khaloo.vercel.app)
-- **Backend API**: [https://khaloo-api.vercel.app](https://khaloo-api.vercel.app)
   
 # Getting Started with Create React App
 
